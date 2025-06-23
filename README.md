@@ -85,6 +85,21 @@ Streamline repetitive tasks by combining a series of REPL commands into a custom
 
 Integrate external documents into your LLM conversations for more accurate and contextually relevant responses.
 
+```bash
+# Create RAG database from GitHub repository
+aichat --rag repo-knowledge
+# When prompted, add: https://github.com/username/repo/**
+
+# Query your knowledge base
+aichat --rag repo-knowledge "How does the authentication work?"
+
+# Supported sources:
+# - Local files: file.txt, dir/, dir/**/*.{md,txt}
+# - URLs: https://example.com
+# - GitHub repos: https://github.com/user/repo/**
+# - Documentation sites: https://docs.example.com/**
+```
+
 ![aichat-rag](https://github.com/user-attachments/assets/359f0cb8-ee37-432f-a89f-96a2ebab01f6)
 
 ### Function Calling
@@ -111,11 +126,14 @@ AIChat includes a lightweight built-in HTTP server for easy deployment.
 
 ```
 $ aichat --serve
-Chat Completions API: http://127.0.0.1:8000/v1/chat/completions
-Embeddings API:       http://127.0.0.1:8000/v1/embeddings
-Rerank API:           http://127.0.0.1:8000/v1/rerank
-LLM Playground:       http://127.0.0.1:8000/playground
-LLM Arena:            http://127.0.0.1:8000/arena?num=2
+Chat Completions API: http://127.0.0.1:42333/v1/chat/completions
+Embeddings API:       http://127.0.0.1:42333/v1/embeddings
+Rerank API:           http://127.0.0.1:42333/v1/rerank
+LLM Playground:       http://127.0.0.1:42333/playground
+LLM Arena:            http://127.0.0.1:42333/arena?num=2
+
+# To use custom port: aichat --serve --port 8080
+# Or configure in config.yaml: serve_addr: 127.0.0.1:8080
 ```
 
 #### Proxy LLM APIs
@@ -129,7 +147,7 @@ curl -X POST -H "Content-Type: application/json" -d '{
   "model":"claude:claude-3-5-sonnet-20240620",
   "messages":[{"role":"user","content":"hello"}], 
   "stream":true
-}' http://127.0.0.1:8000/v1/chat/completions
+}' http://127.0.0.1:42333/v1/chat/completions
 ```
 
 #### LLM Playground

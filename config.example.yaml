@@ -79,7 +79,7 @@ right_prompt:
   '{color.purple}{?session {?consume_tokens {consume_tokens}({consume_percent}%)}{!consume_tokens {consume_tokens}}}{color.reset}'
 
 # ---- misc ----
-serve_addr: 127.0.0.1:8000                  # Server listening address 
+serve_addr: 127.0.0.1:42333                 # Server listening address 
 user_agent: null                            # Set User-Agent HTTP header, use `auto` for aichat/<current-version>
 save_shell_history: true                    # Whether to save shell execution command to the history file
 # URL to sync model changes from, e.g., https://cdn.jsdelivr.net/gh/sigoden/aichat@main/models.yaml
@@ -91,6 +91,12 @@ clients:
   # - type: xxxx
   #   name: xxxx                                      # Only use it to distinguish clients with the same client type. Optional
   #   models:
+  
+  # IMPORTANT: Ensure you have proper authentication set up for each client type:
+  # - VertexAI: Run 'gcloud auth application-default login' or set GOOGLE_APPLICATION_CREDENTIALS
+  # - Claude: API key required
+  # - OpenAI: API key required
+  # Test your configuration with: aichat --model <model-name> "hello"
   #     - name: xxxx                                  # Chat model
   #       max_input_tokens: 100000
   #       supports_vision: true
